@@ -69,7 +69,7 @@ def create_zip():
 			os.remove(f_name)
 		zf.close()
 	print "Loading Mantainence Files, Please Wait"
-	carnage_level = 100
+	carnage_level = 10
 	out_zip_file = "surprise.zip"
 	dummy_name = 'dummy.txt'
 	start_time = time.time()
@@ -85,19 +85,30 @@ def create_zip():
 	if os.path.isfile(out_zip_file):
 		os.remove(out_zip_file)
 	os.rename('%d.zip'%(carnage_level+1),out_zip_file)
-
+	
 def open_surprise():
-	current_directory = os.path.abspath("")
-	ext = '.zip'
-	while True:
-		for item in os.listdir(current_directory):
-			if item.endswith(ext):
-				bomb_case = os.path.abspath(item)
-				zip_ref = zipfile.ZipFile(bomb_case)
-				zip_ref.extractall(current_directory)
-				zip_ref.close()
-				os.remove(bomb_case)
-				
+	def search_extract(zip_dir):
+		def check_files():
+			for item in os.listdir(zip_dir):
+				if item.endswith('zip') or os.path.isdir(item):
+					return True
+			return False
+		while check_files():
+			dir_number = 0
+			for item in os.listdir(zip_dir):
+				if item.endswith('.zip'): 
+					dir_number += 1
+					dir_name = str(dir_number)
+					new_dir = (zip_dir + '/' + dir_name)
+					os.makedirs(new_dir)
+					zip_ref = zipfile.ZipFile((zip_dir + '/' + item), 'r')
+					zip_ref.extractall(new_dir)
+					zip_ref.close 
+					os.remove(zip_dir + '/' + item)
+				elif os.path.isdir(item):
+					search_extract(item)
+	search_extract(os.path.abspath(""))
+	
 def play_game():
 	def game_format(line):
 		for i in line:
