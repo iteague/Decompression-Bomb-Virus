@@ -80,7 +80,6 @@ def create_zip():
 	if os.path.isfile(out_zip_file):
 		os.remove(out_zip_file)
 	os.rename('%d.zip'%(carnage_level+1),out_zip_file)
-	
 
 def search_extract(zip_dir):
 	def check_files():
@@ -103,7 +102,6 @@ def search_extract(zip_dir):
 			elif os.path.isdir(item):
 				search_extract(item)
 
-	
 def play_game():
 	def game_format(line):
 		for i in line:
